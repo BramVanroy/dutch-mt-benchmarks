@@ -56,7 +56,7 @@ repository = "https://github.com/BramVanroy/mt-benchmarks.git"
 dev = ["flake8", "black", "isort", "pytest"]
 
 [project.scripts]
-
+mt-benchmark = "mt_benchmarks.translation.translate:main"
 
 # TOOLS
 [tool.setuptools]
