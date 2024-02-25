@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools >= 40.6.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mt_benchmarks"
+# Do not forget to change in __init__.py too!
+version = "0.1.0"
+authors = [
+    {name = "Bram Vanroy", email = "bramvanroy@hotmail.com"},
+]
+maintainers = [
+    {name = "Bram Vanroy", email = "bramvanroy@hotmail.com"},
+]
+description = "Benchmarking machine translation models"
+readme = "README.md"
+keywords = ["machine translation", "mt", "evaluation"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Text Processing",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: Apache Software License"
+]
+
+requires-python = ">=3.10"
+dependencies = [
+    "accelerate==0.27.*",
+    "bitsandbytes==0.42.*",
+    "bert-score==0.3.*",
+    "BLEURT @ git+https://github.com/google-research/bleurt.git@cebe7e6f996b40910cfaa520a63db47807e3bf5c",
+    "datasets==2.17.*",
+    "hf_transfer==0.1.*",
+    "sacrebleu[ja,ko]==2.4.*",
+    "sacremoses==0.1.*",
+    "sentencepiece",
+    "setuptools",
+    "transformers<5",
+    "torch==2.2.*",
+    "typer[all]<1",
+    "unbabel-comet==2.2.*",
+    "wheel",
+]
+
+[project.urls]
+homepage = "https://github.com/BramVanroy/mt-benchmarks"
+documentation = "https://github.com/BramVanroy/mt-benchmarks"
+repository = "https://github.com/BramVanroy/mt-benchmarks.git"
+
+[project.optional-dependencies]
+dev = ["flake8", "black", "isort", "pytest"]
+
+[project.scripts]
+
+
+# TOOLS
+[tool.setuptools]
+include-package-data = true
+license-files = ['LICEN[CS]E*']
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 119
+target-version = ["py310", "py311"]
+
+[tool.isort]
+profile = "black"
+ensure_newline_before_comments = true
+line_length = 119
+default_section = "FIRSTPARTY"
+known_first_party = "mt_benchmarks"
+lines_after_imports = 2
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning:tensorflow.*:",
+]
+testpaths = ["tests"]
+
+# flake8 is in setup.cfg as it does not support toml:
+# https://github.com/PyCQA/flake8/issues/234

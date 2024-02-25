@@ -1,0 +1,14 @@
+model_name_or_path: facebook/nllb-200-distilled-600M
+src_lang_token: eng_Latn
+tgt_lang_token: nld_Latn
+forced_bos_token: nld_Latn
+per_device_eval_batch_size: 32
+include_inputs_for_metrics: true
+
+dataset_name: Helsinki-NLP/tatoeba_mt
+dataset_config_name: eng-nld
+dataset_split_name: test
+src_column: sourceString
+tgt_column: targetString
+
+output_dir: results/en-nl/tatoeba_mt/facebook--nllb-200-distilled-600M

@@ -1,0 +1,12 @@
+{
+    "cuda_version": "11.8",
+    "torch_version": "2.2.1+cu118",
+    "transformers_version": "4.38.1",
+    "python_version": "3.11.7",
+    "mt_benchmarks_version": "0.1.0",
+    "model_revision": "8aad73b34ff36c090e7fc8a2eb7e2e7cca235d31",
+    "dataset_revision": null,
+    "seed": 42,
+    "max_length": null,
+    "num_beams": 1
+}
