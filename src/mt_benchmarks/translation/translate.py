@@ -346,16 +346,13 @@ def main():
 
         # Save translation info
         info = {
-            "cuda_version": torch.version.cuda,
+            "torch_cuda_version": torch.version.cuda,
             "torch_version": torch.version.__version__,
             "transformers_version": transformers.__version__,
             "python_version": platform.python_version(),
             "mt_benchmarks_version": mt_benchmarks.__version__,
             "model_revision": get_revision(model_args.model_name_or_path, "model", revision=model_args.model_revision),
             "dataset_revision": get_revision(data_args.dataset_name, "dataset", revision=data_args.dataset_revision),
-            "seed": training_args.seed,
-            "max_length": max_length,
-            "num_beams": num_beams,
         }
         Path(training_args.output_dir).joinpath("translate_info.json").write_text(json.dumps(info, indent=4))
 
