@@ -45,6 +45,8 @@ logger = logging.getLogger(__name__)
 
 
 def main():
+    # This script was modified from
+    # https://github.com/huggingface/transformers/blob/main/examples/pytorch/translation/run_translation.py
     parser = CliArgumentParser((ModelArguments, DataArguments, GenerationArguments, Seq2SeqTrainingArguments))
 
     parsed_args = parser.parse()
