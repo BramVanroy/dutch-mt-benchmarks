@@ -353,8 +353,12 @@ def main():
             "transformers_version": transformers.__version__,
             "python_version": platform.python_version(),
             "mt_benchmarks_version": mt_benchmarks.__version__,
-            "model_revision": get_revision(model_args.model_name_or_path, "model", revision=model_args.model_revision),
-            "dataset_revision": get_revision(data_args.dataset_name, "dataset", revision=data_args.dataset_revision),
+            "model_revision": get_revision(
+                model_args.model_name_or_path, repo_type="model", revision=model_args.model_revision
+            ),
+            "dataset_revision": get_revision(
+                data_args.dataset_name, repo_type="dataset", revision=data_args.dataset_revision
+            ),
         }
         Path(training_args.output_dir).joinpath("translate_info.json").write_text(json.dumps(info, indent=4))
 

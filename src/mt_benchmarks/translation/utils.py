@@ -2,12 +2,13 @@ from os import PathLike
 from pathlib import Path
 from typing import Literal
 
-from huggingface_hub import dataset_info, model_info
+from huggingface_hub import repo_info
 
 
 def get_revision(
-    item_name: str,
-    item_type: Literal["dataset", "model"],
+    repo_id: str,
+    *,
+    repo_type: Literal["model", "dataset"] = "model",
     revision: str | None = None,
     token: bool | str | None = None,
 ) -> str:
@@ -15,22 +16,23 @@ def get_revision(
     Get the revision hash of a dataset or model in the local cache. If a revision is not given, get
     the most recent one.
 
-    :param item_name: The name of the dataset or model.
-    :param item_type: The type of the item, either "dataset" or "model".
+    :param repo_id: The name of the dataset or model.
+    :param repo_type: Repository type to get information from. 'model' or 'dataset'.
     :param revision: The revision hash to get. If None, get the most recent one. 'main' is not a valid revision
     because every 'new' revision is 'main' until it is changed. So if 'main' is passed, it will be replaced by None.
     :param token: The Hugging Face API token to use for authentication. This is useful if you want to access
     private datasets or models. If None, the token will be taken from the currently logged in HF user.
     :return: The revision hash of the item
     """
-    revision = None if revision == "main" else revision
+    if repo_type not in ["model", "dataset"]:
+        raise ValueError("repo_type must be either 'model' or 'dataset'. Getting space revision is not supported.")
 
-    if item_type == "model":
-        return model_info(item_name, revision=revision, token=token).sha
-    elif item_type == "dataset":
-        return dataset_info(item_name, revision=revision, token=token).sha
-    else:
-        raise ValueError("item_type must be either 'model' or 'dataset'.")
+    return repo_info(
+        repo_id=repo_id,
+        repo_type=repo_type,
+        revision=revision,
+        token=token,
+    ).sha
 
 
 def get_new_result_version(output_dir: str | PathLike) -> int:
